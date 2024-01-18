@@ -225,7 +225,6 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
     private JPanel PUPrzyciskPanel = new JPanel();
     private JPanel PNDPrzyciskPanel = new JPanel();
 
-
     private JPanel contentPanel = new JPanel();
     private JPanel studentContentPanel = new JPanel();
     private JPanel PNDContentPanel = new JPanel();
