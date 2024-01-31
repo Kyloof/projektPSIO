@@ -1,12 +1,14 @@
 package Pracownik;
 
 import Osoba.Osoba;
+import wynagrodzenieStrategy.Wynagrodzenie;
+import wynagrodzenieStrategy.obliczWynagrodzeniePoStazu;
 
 public abstract class Pracownik extends Osoba {
-    private int wynagrodzenie;
+    private Wynagrodzenie wynagrodzenie;
     private int ileLatPrzepracowane;
 
-    public Pracownik(int wiek, String imie, String nazwisko, String pesel, int wynagrodzenie, int ileLatPrzepracowane) {
+    public Pracownik(int wiek, String imie, String nazwisko, String pesel, int ileLatPrzepracowane, Wynagrodzenie wynagrodzenie) {
         super(wiek, imie, nazwisko, pesel);
         this.wynagrodzenie = wynagrodzenie;
         this.ileLatPrzepracowane = ileLatPrzepracowane;
@@ -14,10 +16,13 @@ public abstract class Pracownik extends Osoba {
 
     @Override
     public String toString(){
-        return (super.toString() + "Wynagrodzenie: " + getWynagrodzenie() + " Długość stażu: " + getIleLatPrzepracowane()+ " ");
+        return (super.toString() + " Wynagrodzenie: " + getWynagrodzenie() + " Długość stażu: " + getIleLatPrzepracowane()+ " ");
     }
 
 
+    public double getWynagrodzenie() {
+        return wynagrodzenie.toStringWynagrodzenie();
+    }
 
     public int getIleLatPrzepracowane() {
         return ileLatPrzepracowane;
@@ -27,11 +32,5 @@ public abstract class Pracownik extends Osoba {
         this.ileLatPrzepracowane = ileLatPrzepracowane;
     }
 
-    public int getWynagrodzenie() {
-        return wynagrodzenie;
-    }
 
-    public void setWynagrodzenie(int wynagrodzenie) {
-        this.wynagrodzenie = wynagrodzenie;
-    }
 }

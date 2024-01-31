@@ -2,20 +2,27 @@ package Student;
 
 import Osoba.Osoba;
 import Kursy.Kursy;
+import obliczStypendiumStrategy.Stypendium;
+import obliczStypendiumStrategy.obliczStypendiumNaPodstawieOcen;
+
 import java.util.ArrayList;
 
 public class Student extends Osoba {
     private int indeks;
+    private float sredniaOcen;
     private String kierunek;
     private int ktorySemestr;
+    private Stypendium stypendium;
     private ArrayList<Kursy> listaKursow = new ArrayList<Kursy>();
 
 
-    public Student(int wiek, String imie, String nazwisko, String pesel, int indeks, String kierunek, int ktorySemestr) {
+    public Student(int wiek, String imie, String nazwisko, String pesel, int indeks, String kierunek, int ktorySemestr, float sredniaOcen) {
         super(wiek, imie, nazwisko, pesel);
         this.indeks = indeks;
         this.kierunek = kierunek;
         this.ktorySemestr = ktorySemestr;
+        this.sredniaOcen = sredniaOcen;
+        this.stypendium = new obliczStypendiumNaPodstawieOcen(sredniaOcen);
 
     }
 
@@ -27,18 +34,23 @@ public class Student extends Osoba {
 
 
 
-
+    public String getStypendium(){
+        return stypendium.toStringStypendium();
+    }
     @Override
     public String toString(){
-        return (super.toString() + "indeks: " + getIndeks() + " " + getKierunek() + "Semestr: " + getKtorySemestr()+ '\n'+ wyswietlKursy());
+        return (super.toString() + " indeks: " + getIndeks() + " " + getKierunek() + "Semestr: " + getKtorySemestr()+ "Stypendium" + getStypendium() + "<br>" + wyswietlKursy());
     }
 
 
+    public double getSredniaOcen(){
+        return sredniaOcen;
+    }
 
     public String wyswietlKursy() {
         String kursy = "";
         for (int i = 0; i < getListaKursow().size(); i++) {
-            kursy += "Kurs: " + getListaKursow().get(i).getNazwaKursu() + " Wykładowca: " + getListaKursow().get(i).getWykladowca() + " Cwiczeniowiec: " + getListaKursow().get(i).getCwiczeniowiec() + " ";
+            kursy += "Kurs: " + getListaKursow().get(i).getNazwaKursu() + " Wykładowca: " + getListaKursow().get(i).getWykladowca() + " Cwiczeniowiec: " + getListaKursow().get(i).getCwiczeniowiec() + "<br>";
         }
         return kursy;
 

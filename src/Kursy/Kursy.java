@@ -15,7 +15,7 @@ public class Kursy implements Serializable{
 
     @Override
     public String toString(){
-        return "Nazwa kursu: " + getNazwaKursu() + " Wykladowca: " + getWykladowca() + " Cwiczeniowiec: " + getCwiczeniowiec();
+        return "Nazwa kursu: " + getNazwaKursu() + " Wykladowca: " + getWykladowca() + " Cwiczeniowiec: " + getCwiczeniowiec() + "<br>";
     }
     public String getNazwaKursu() {
         return nazwaKursu;

@@ -1,11 +1,13 @@
 package MainPage;
 
-import Osoba.Osoba;
+import Kursy.Kursy;
 import Pracownik.PracownikNaukowoDydaktyczny;
 import Pracownik.PracownikUczelni;
 import BazaDanych.BazaDanych;
-import BazaDanych.Serializacja;
 import Student.Student;
+import wynagrodzenieStrategy.Wynagrodzenie;
+import wynagrodzenieStrategy.obliczWynagrodzeniePoStazu;
+import wynagrodzenieStrategy.obliczWynagrodzeniePoTytyleNaukowym;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,202 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class Frontend extends JFrame implements ActionListener {
-
-    private JLabel titleLabel = new JLabel("Politechnika Wrocławska");
-
-    JButton saveButton = new JButton("Zapisz");
-    JButton loadButton = new JButton("Odczytaj");
-    JButton wyszukajStudentaButton = new JButton("Wyszukaj Studenta");
-    JButton wyszukajPracownikowButton = new JButton("Wyszukaj Pracowników");
-    JButton wyszukajPracownikaAdminButton = new JButton("Wyszukaj Pracownika Administracyjnego");
-
-
-    CardLayout cardLayout = new CardLayout();
-    JPanel mainPage = new JPanel(cardLayout);
-    JList<String> listaOsobJList = new JList<>();
-    JPanel functionalityPage = new JPanel();
-    JPanel showPeoplePage = new JPanel();
-    JPanel addPersonPage = new JPanel();
-    JPanel pokazOsobyPanel = new JPanel();
-
-
-    JButton addPersonButton = new JButton("Dodaj osobę");
-    JButton showPeopleButton = new JButton("Wyswietl osoby");
-    JButton functionalityButton = new JButton("Wejdź do ");
-    JTextField studentIndexField = new JTextField("Wprowadź indeks");
-    JTextField employeeJobField = new JTextField("Wprowadź pracę");
-    JTextField paycheckField = new JTextField("Wprowadź zarobki");
-
-    public Frontend() {
-        saveButton.addActionListener(this);
-        loadButton.addActionListener(this);
-
-
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));  // Opcjonalne: Ustawienie niestandardowego stylu czcionki
-        titleLabel.setHorizontalAlignment(JLabel.CENTER);  // Opcjonalne: Wyśrodkowanie tekstu
-
-
-
-        JPanel saveLoadPanel = new JPanel();
-        saveLoadPanel.add(saveButton);
-        saveLoadPanel.add(loadButton);
-
-        wyszukajStudentaButton.addActionListener(this);
-        wyszukajPracownikowButton.addActionListener(this);
-        wyszukajPracownikaAdminButton.addActionListener(this);
-
-
-        addPersonPage.setLayout(new FlowLayout());
-        addPersonPage.add(paycheckField);
-
-        showPeoplePage.setLayout(new FlowLayout());
-        showPeoplePage.add(employeeJobField);
-        showPeoplePage.add(paycheckField);
-
-        functionalityPage.setLayout(new BoxLayout(functionalityPage, BoxLayout.Y_AXIS));
-
-        JPanel studentIndexSearchPanel = new JPanel();
-        studentIndexSearchPanel.setLayout(new BoxLayout(studentIndexSearchPanel, BoxLayout.X_AXIS));
-        studentIndexSearchPanel.add(wyszukajStudentaButton);
-        studentIndexSearchPanel.add(studentIndexField);
-
-        JPanel pracownikZarobkiSearch = new JPanel();
-        pracownikZarobkiSearch.setLayout(new BoxLayout(pracownikZarobkiSearch, BoxLayout.X_AXIS));
-        pracownikZarobkiSearch.add(wyszukajPracownikowButton);
-        pracownikZarobkiSearch.add(paycheckField);
-
-        JPanel pracownikStanowiskoSearch = new JPanel();
-        pracownikStanowiskoSearch.setLayout(new BoxLayout(pracownikStanowiskoSearch, BoxLayout.X_AXIS));
-        pracownikStanowiskoSearch.add(wyszukajPracownikaAdminButton);
-        pracownikStanowiskoSearch.add(employeeJobField);
-
-        functionalityPage.add(studentIndexSearchPanel);
-        functionalityPage.add(pracownikStanowiskoSearch);
-        functionalityPage.add(pracownikZarobkiSearch);
-
-        mainPage.add(addPersonPage, "Dodaj osobę");
-        mainPage.add(showPeoplePage, "Wyswietl osoby");
-        mainPage.add(functionalityPage, "Wejdź do funkcji");
-
-
-        addPersonButton.addActionListener(this);
-        showPeopleButton.addActionListener(this);
-        functionalityButton.addActionListener(this);
-
-
-
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(saveLoadPanel);
-        buttonPanel.add(addPersonButton);
-        buttonPanel.add(showPeopleButton);
-        buttonPanel.add(functionalityButton);
-
-        JPanel titlePanel = new JPanel();
-        titlePanel.add(titleLabel);
-        add(titlePanel, BorderLayout.NORTH);
-        add(buttonPanel, BorderLayout.CENTER);
-        add(mainPage, BorderLayout.SOUTH);
-        dodajOsobe addPersonPage = new dodajOsobe(this);
-        mainPage.add(addPersonPage, "DodajOsobe");
-
-        mainPage.add(pokazOsobyPanel,"PokazOsoby");
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(500,500));
-        pack();
-        setLocationByPlatform(true);
-        setVisible(true);
-    }
-
-    public void Start() {
-        cardLayout.show(mainPage, "Strona Glowna");
-    }
-    private void pokazListeOsob() {
-        ArrayList<Osoba> listaOsob = BazaDanych.getListaOsob();
-        StringBuilder stringBuilder = new StringBuilder("<html><body>");
-
-        for (Osoba osoba : listaOsob) {
-            if (osoba instanceof Student)
-                stringBuilder.append(((Student) osoba).toString()).append("<br><br>");
-            else if (osoba instanceof PracownikUczelni)
-                stringBuilder.append(((PracownikUczelni) osoba).toString()).append("<br><br>");
-            else if(osoba instanceof PracownikNaukowoDydaktyczny)
-                stringBuilder.append(((PracownikNaukowoDydaktyczny) osoba).toString()).append("<br><br>");
-            else
-                stringBuilder.append(osoba.toString()).append("<br>");
-
-        }
-
-
-
-        stringBuilder.append("</body></html>");
-        JLabel label = new JLabel(stringBuilder.toString());
-        pokazOsobyPanel.removeAll();
-        pokazOsobyPanel.add(label);
-        pokazOsobyPanel.revalidate();
-        pokazOsobyPanel.repaint();
-    }
-
-    private void wyswietlWynikiWyszukiwania(String wyniki) {
-        JLabel label = new JLabel(wyniki);
-        pokazOsobyPanel.removeAll();
-        pokazOsobyPanel.add(label);
-        pokazOsobyPanel.revalidate();
-        pokazOsobyPanel.repaint();
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == saveButton) {
-            Serializacja.zapis(BazaDanych.getListaOsob(), "baza.ser");
-            Serializacja.zapisKurs(BazaDanych.getListaKursow(), "bazaKursow.ser");
-
-        } else if (e.getSource() == loadButton) {
-            Serializacja.odczyt("baza.ser");
-            Serializacja.odczytKurs("bazaKursow.ser");
-        }
-        if (e.getSource() == wyszukajStudentaButton) {
-            int numerIndeksu = Integer.parseInt(studentIndexField.getText());
-            String result = BazaDanych.wyszukajStudentaPoNumerzeIndeksu(numerIndeksu);
-            wyswietlWynikiWyszukiwania(result);
-            cardLayout.show(mainPage, "PokazOsoby");
-        }
-
-        if (e.getSource() == wyszukajPracownikowButton) {
-            double zarobki = Double.parseDouble(paycheckField.getText());
-            String result = BazaDanych.wyszukajPracownikowUczelniPoZarobkach(zarobki);
-            wyswietlWynikiWyszukiwania(result);
-            cardLayout.show(mainPage, "PokazOsoby");
-        }
-
-        if (e.getSource() == wyszukajPracownikaAdminButton) {
-            String stanowisko = employeeJobField.getText();
-            String result = BazaDanych.wyszukajPracownikaAdministracyjnegoPoStanowisku(stanowisko);
-            wyswietlWynikiWyszukiwania(result);
-            cardLayout.show(mainPage, "PokazOsoby");
-        }
-
-        if (e.getSource() == addPersonButton) {
-            cardLayout.show(mainPage, "DodajOsobe");
-        }
-
-        if (e.getSource() == showPeopleButton) {
-            pokazListeOsob();
-            cardLayout.show(mainPage,"PokazOsoby");
-        }
-
-        if (e.getSource() == functionalityButton) {
-            cardLayout.show(mainPage, "Wejdź do funkcji");
-        }
-    }
-}
-
-/*
-class stronaDodajOsobe extends JPanel implements ActionListener {
+class dodajOsobe extends JPanel implements ActionListener {
     private ArrayList<Kursy> dostepneKursy = new ArrayList<Kursy>();
-
+    private Wynagrodzenie obliczWynagrodzenieStrategy;
     private JList<Kursy> listaKursowJList = new JList<>();
     private JButton dodajKursDoStudentaButton = new JButton("Dodaj wybrane kursy do studenta");
     private Frontend frontend;
@@ -221,6 +30,7 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
 
     private JPanel wiekPanel = new JPanel();
 
+    private JPanel sredniaPanel = new JPanel();
     private JPanel imiePanel = new JPanel();
     private JPanel nazwiskoPanel = new JPanel();
     private JPanel kierunekPanel = new JPanel();
@@ -250,9 +60,16 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
 
     private JButton PNDZatwierdzDodaniePrzycisk = new JButton("Zatwierdź");
 
-    private JButton wrocDoStronyGlownejPrzycisk = new JButton("Wróć");
+    private JButton wrocDoStronyGlownejPrzycisk = new JButton("Wroc");
 
     JTextField cwiczeniowiecField = new JTextField("Wprowadz Nauczyciela od cwiczen");
+
+    private JPanel StrategiaPanel = new JPanel();
+    JCheckBox StrategieCheckBox = new JCheckBox();
+    JCheckBoxMenuItem poStazu = new JCheckBoxMenuItem("Oblicz wynagrodzenie po stażu");
+    JCheckBoxMenuItem poTytule = new JCheckBoxMenuItem("Oblicz wynagrodzenie po tytule");
+
+
 
     private JLabel labelWiek = new JLabel("Wiek: ");
     private JLabel labelImie = new JLabel("Imię: ");
@@ -261,6 +78,7 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
     private JLabel labelIndeks = new JLabel("Indeks: ");
     private JLabel labelKierunek = new JLabel("Kierunek: ");
     private JLabel labelSemestr = new JLabel("Semestr: ");
+    private JLabel sredniaOcen = new JLabel("Średnia ocen: ");
     private JLabel labelWynagrodzenie = new JLabel("Wynagrodzenie: ");
     private JLabel labelStaz = new JLabel("Staż: ");
     private JLabel labelTytulNaukowy = new JLabel("Tytuł naukowy: ");
@@ -271,6 +89,7 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
     private DefaultListModel<Kursy> modelListyKursow = new DefaultListModel<>();
 
     private JTextField textFieldImie = new JTextField();
+    private JTextField textFieldSrednia = new JTextField();
     private JTextField textFieldNazwisko = new JTextField();
     private JTextField textFieldPesel = new JTextField();
     private JTextField textFieldIndeks = new JTextField();
@@ -284,7 +103,7 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
     private JList<Kursy> selectedKursyJList = new JList<>(modelListyKursow);
 
 
-    public stronaDodajOsobe(Frontend frontend) {
+    public dodajOsobe(Frontend frontend) {
 
         setLayout(cardLayout);
         this.frontend = frontend;
@@ -297,13 +116,14 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
         PNDZatwierdzDodaniePrzycisk.addActionListener(this);
         dodajKursButton.addActionListener(this);
         wrocDoStronyGlownejPrzycisk.addActionListener(this);
+        StrategieCheckBox.addActionListener(this);
+
+        StrategiaPanel.add(StrategieCheckBox);
+        StrategieCheckBox.add(poStazu);
+        StrategiaPanel.add(poTytule);
 
 
-        studentPrzyciskPanel.setLayout(new BoxLayout(studentPrzyciskPanel, BoxLayout.X_AXIS));
-        studentPrzyciskPanel.add(StudentZatwierdzDodaniePrzycisk);
-        studentPrzyciskPanel.add(wrocDoStronyGlownejPrzycisk);
-
-        studentPrzyciskPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Use FlowLayout for horizontal arrangement
+        studentPrzyciskPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         studentPrzyciskPanel.add(StudentZatwierdzDodaniePrzycisk);
         studentPrzyciskPanel.add(wrocDoStronyGlownejPrzycisk);
 
@@ -315,10 +135,14 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
         PNDPrzyciskPanel.add(PNDZatwierdzDodaniePrzycisk);
         PNDPrzyciskPanel.add(wrocDoStronyGlownejPrzycisk);
 
+
         wiekPanel.setLayout(new BoxLayout(wiekPanel, BoxLayout.X_AXIS));
         wiekPanel.add(labelWiek);
         wiekPanel.add(textFieldWiek);
 
+        sredniaPanel.setLayout(new BoxLayout(sredniaPanel, BoxLayout.X_AXIS));
+        sredniaPanel.add(sredniaOcen);
+        sredniaPanel.add(textFieldSrednia);
 
         imiePanel.setLayout(new BoxLayout(imiePanel, BoxLayout.X_AXIS));
         imiePanel.add(labelImie);
@@ -387,7 +211,6 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
     }
 
     public void zaladujDostepneKursy() {
-
         ArrayList<Kursy> listaKursow = BazaDanych.getKursy();
         modelListyKursow.clear();
         for (Kursy kurs : listaKursow) {
@@ -423,11 +246,12 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
             String kierunek = textFieldKierunek.getText();
             int semestr = Integer.parseInt(textFieldSemestr.getText());
             int indeks = Integer.parseInt(textFieldIndeks.getText());
+            float sredniaOcen = Float.parseFloat(textFieldSrednia.getText());
 
 
 
 
-            Student student = new Student(wiek, imie, nazwisko, pesel, indeks, kierunek, semestr);
+            Student student = new Student(wiek, imie, nazwisko, pesel, indeks, kierunek, semestr, sredniaOcen);
             ArrayList<Kursy> kursyDodane = new ArrayList<>();
             kursyDodane.addAll(listaKursowJList.getSelectedValuesList());
 
@@ -450,10 +274,9 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
             String nazwisko = textFieldNazwisko.getText();
             String pesel = textFieldPesel.getText();
             String stanowsiko = textFieldStanowisko.getText();
-            int wynagrodzenie = Integer.parseInt(textFieldWynagrodzenie.getText());
             int staz = Integer.parseInt(textFieldStaz.getText());
-
-            PracownikUczelni pU = new PracownikUczelni(wiek, imie, nazwisko, pesel, wynagrodzenie, staz, stanowsiko);
+            obliczWynagrodzenieStrategy = new obliczWynagrodzeniePoStazu(staz);
+            PracownikUczelni pU = new PracownikUczelni(wiek, imie, nazwisko, pesel, staz, stanowsiko, obliczWynagrodzenieStrategy);
             BazaDanych.dodajPU(pU);
             cardLayout.show(this, "stronaGlowna");
 
@@ -465,10 +288,17 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
             String nazwisko = textFieldNazwisko.getText();
             String pesel = textFieldPesel.getText();
             String tytulNaukowy = textFieldTytulNaukowy.getText();
-            int wynagrodzenie = Integer.parseInt(textFieldWynagrodzenie.getText());
             int staz = Integer.parseInt(textFieldStaz.getText());
 
-            PracownikNaukowoDydaktyczny PND = new PracownikNaukowoDydaktyczny(wiek, imie, nazwisko, pesel, wynagrodzenie, staz, tytulNaukowy);
+            if (poStazu.isSelected()) {
+                    obliczWynagrodzenieStrategy = new obliczWynagrodzeniePoStazu(staz);
+            } else if (poTytule.isSelected()) {
+                    obliczWynagrodzenieStrategy = new obliczWynagrodzeniePoTytyleNaukowym(tytulNaukowy);
+            }
+
+
+
+            PracownikNaukowoDydaktyczny PND = new PracownikNaukowoDydaktyczny(wiek, imie, nazwisko, pesel, staz, tytulNaukowy, obliczWynagrodzenieStrategy);
             BazaDanych.dodajPND(PND);
             cardLayout.show(this, "stronaGlowna");
 
@@ -480,6 +310,7 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
             PNDContentPanel.removeAll();
             studentContentPanel.removeAll();
             studentContentPanel.setLayout(new BoxLayout(studentContentPanel, BoxLayout.Y_AXIS));
+            studentContentPanel.add(sredniaPanel);
             studentContentPanel.add(wiekPanel);
             studentContentPanel.add(imiePanel);
             studentContentPanel.add(nazwiskoPanel);
@@ -493,11 +324,7 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
             studentContentPanel.add(wrocDoStronyGlownejPrzycisk);
 
 
-
-
-
             cardLayout.show(this, "stronaStudenta");
-
 
             aktualizujListeKursowStudenta();
         }
@@ -511,10 +338,12 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
             PNDContentPanel.add(imiePanel);
             PNDContentPanel.add(nazwiskoPanel);
             PNDContentPanel.add(peselPanel);
-            PNDContentPanel.add(wynagrodzeniePanel);
             PNDContentPanel.add(stazPanel);
             PNDContentPanel.add(tytulNaukowyPanel);
             PNDContentPanel.add(PNDPrzyciskPanel);
+            PNDContentPanel.add(StrategiaPanel);
+            PNDContentPanel.add(wrocDoStronyGlownejPrzycisk);
+
 
             cardLayout.show(this, "stronaPND");
         }
@@ -528,10 +357,11 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
             PUContentPanel.add(imiePanel);
             PUContentPanel.add(nazwiskoPanel);
             PUContentPanel.add(peselPanel);
-            PUContentPanel.add(wynagrodzeniePanel);
             PUContentPanel.add(stazPanel);
             PUContentPanel.add(stanowiskoPanel);
             PUContentPanel.add(PUPrzyciskPanel);
+            PUContentPanel.add(wrocDoStronyGlownejPrzycisk);
+
 
             cardLayout.show(this, "stronaPU");
         }
@@ -539,8 +369,8 @@ class stronaDodajOsobe extends JPanel implements ActionListener {
             cardLayout.show(this, "stronaGlowna");
         }
     }
+
 }
 
 
 
-*/

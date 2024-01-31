@@ -1,11 +1,13 @@
 package Pracownik;
 
+import wynagrodzenieStrategy.Wynagrodzenie;
+
 public class PracownikNaukowoDydaktyczny extends Pracownik{
     private String tytulNaukowy;
 
 
-    public PracownikNaukowoDydaktyczny(int wiek, String imie, String nazwisko, String pesel, int wynagrodzenie, int ileLatPrzepracowane, String tytulNaukowy) {
-        super(wiek, imie, nazwisko, pesel, wynagrodzenie, ileLatPrzepracowane);
+    public PracownikNaukowoDydaktyczny(int wiek, String imie, String nazwisko, String pesel, int ileLatPrzepracowane, String tytulNaukowy, Wynagrodzenie wynagrodzenie) {
+        super(wiek, imie, nazwisko, pesel, ileLatPrzepracowane, wynagrodzenie);
         this.tytulNaukowy = tytulNaukowy;
 
     }

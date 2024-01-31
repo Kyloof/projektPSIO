@@ -17,7 +17,7 @@ public abstract class Osoba implements Serializable {
 
     @Override
     public String toString(){
-        return(getImie() + " " + getNazwisko() + " " + getWiek() + " "+ getPesel() + " ");
+        return("Imię: " + getImie() + " Nazwisko: " + getNazwisko() + " Wiek: " + getWiek() + " Pesel: "+ getPesel() + " ");
     }
 
     public int getWiek() {

@@ -1,4 +1,4 @@
-package Program;
+package BazaDanych;
 
 import Kursy.Kursy;
 import Osoba.Osoba;
