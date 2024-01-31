@@ -3,7 +3,7 @@ package MainPage;
 import Kursy.Kursy;
 import Pracownik.PracownikNaukowoDydaktyczny;
 import Pracownik.PracownikUczelni;
-import BazaDanych.BazaDanych;
+import UczelniaController.Controller;
 import Student.Student;
 import wynagrodzenieStrategy.Wynagrodzenie;
 import wynagrodzenieStrategy.obliczWynagrodzeniePoStazu;
@@ -110,6 +110,13 @@ class dodajOsobe extends JPanel implements ActionListener {
         zaladujDostepneKursy();
 
 
+
+        StudentZatwierdzDodaniePrzycisk.setPreferredSize(new Dimension(120, 30));
+        PUZatwierdzDodaniePrzycisk.setPreferredSize(new Dimension(120, 30));
+        PNDZatwierdzDodaniePrzycisk.setPreferredSize(new Dimension(120, 30));
+        dodajKursButton.setPreferredSize(new Dimension(120, 30));
+        wrocDoStronyGlownejPrzycisk.setPreferredSize(new Dimension(120, 30));
+
         dodajKursDoStudentaButton.addActionListener(this);
         StudentZatwierdzDodaniePrzycisk.addActionListener(this);
         PUZatwierdzDodaniePrzycisk.addActionListener(this);
@@ -136,57 +143,110 @@ class dodajOsobe extends JPanel implements ActionListener {
         PNDPrzyciskPanel.add(wrocDoStronyGlownejPrzycisk);
 
 
+
+        labelWiek.setPreferredSize(new Dimension(150, labelWiek.getPreferredSize().height));
+        labelImie.setPreferredSize(new Dimension(150, labelImie.getPreferredSize().height));
+        labelNazwisko.setPreferredSize(new Dimension(150, labelNazwisko.getPreferredSize().height));
+        labelPesel.setPreferredSize(new Dimension(150, labelPesel.getPreferredSize().height));
+        labelIndeks.setPreferredSize(new Dimension(150, labelIndeks.getPreferredSize().height));
+        labelKierunek.setPreferredSize(new Dimension(150, labelKierunek.getPreferredSize().height));
+        labelSemestr.setPreferredSize(new Dimension(150, labelSemestr.getPreferredSize().height));
+        labelWynagrodzenie.setPreferredSize(new Dimension(150, labelWynagrodzenie.getPreferredSize().height));
+        labelStaz.setPreferredSize(new Dimension(150, labelStaz.getPreferredSize().height));
+        labelStanowisko.setPreferredSize(new Dimension(150, labelStanowisko.getPreferredSize().height));
+        labelTytulNaukowy.setPreferredSize(new Dimension(150, labelTytulNaukowy.getPreferredSize().height));
+        sredniaOcen.setPreferredSize(new Dimension(150, sredniaOcen.getPreferredSize().height));
+
+// Ustaw pozostałe preferowane szerokości jak powyżej
+
         wiekPanel.setLayout(new BoxLayout(wiekPanel, BoxLayout.X_AXIS));
+        imiePanel.setLayout(new BoxLayout(imiePanel, BoxLayout.X_AXIS));
+        nazwiskoPanel.setLayout(new BoxLayout(nazwiskoPanel, BoxLayout.X_AXIS));
+        peselPanel.setLayout(new BoxLayout(peselPanel, BoxLayout.X_AXIS));
+        indeksPanel.setLayout(new BoxLayout(indeksPanel, BoxLayout.X_AXIS));
+        kierunekPanel.setLayout(new BoxLayout(kierunekPanel, BoxLayout.X_AXIS));
+        semestrPanel.setLayout(new BoxLayout(semestrPanel, BoxLayout.X_AXIS));
+        wynagrodzeniePanel.setLayout(new BoxLayout(wynagrodzeniePanel, BoxLayout.X_AXIS));
+        stazPanel.setLayout(new BoxLayout(stazPanel, BoxLayout.X_AXIS));
+        stanowiskoPanel.setLayout(new BoxLayout(stanowiskoPanel, BoxLayout.X_AXIS));
+        tytulNaukowyPanel.setLayout(new BoxLayout(tytulNaukowyPanel, BoxLayout.X_AXIS));
+        sredniaPanel.setLayout(new BoxLayout(sredniaPanel, BoxLayout.X_AXIS));
+// Dodaj pozostałe panele jak powyżej
+
+// Tworzymy glue (przestrzeń elastyczną), aby rozciągnąć komponenty w danym BoxLayout
+        wiekPanel.add(Box.createHorizontalGlue());
+        imiePanel.add(Box.createHorizontalGlue());
+        nazwiskoPanel.add(Box.createHorizontalGlue());
+        peselPanel.add(Box.createHorizontalGlue());
+        indeksPanel.add(Box.createHorizontalGlue());
+        kierunekPanel.add(Box.createHorizontalGlue());
+        semestrPanel.add(Box.createHorizontalGlue());
+        wynagrodzeniePanel.add(Box.createHorizontalGlue());
+        stazPanel.add(Box.createHorizontalGlue());
+        stanowiskoPanel.add(Box.createHorizontalGlue());
+        tytulNaukowyPanel.add(Box.createHorizontalGlue());
+        sredniaPanel.add(Box.createHorizontalGlue());
+
+// Dodaj labelWiek i textFieldWiek z odpowiednimi wagami
         wiekPanel.add(labelWiek);
         wiekPanel.add(textFieldWiek);
+        wiekPanel.add(Box.createHorizontalGlue());
 
-        sredniaPanel.setLayout(new BoxLayout(sredniaPanel, BoxLayout.X_AXIS));
-        sredniaPanel.add(sredniaOcen);
-        sredniaPanel.add(textFieldSrednia);
-
-        imiePanel.setLayout(new BoxLayout(imiePanel, BoxLayout.X_AXIS));
+// Dodaj labelImie i textFieldImie z odpowiednimi wagami
         imiePanel.add(labelImie);
         imiePanel.add(textFieldImie);
+        imiePanel.add(Box.createHorizontalGlue());
 
-        nazwiskoPanel.setLayout(new BoxLayout(nazwiskoPanel, BoxLayout.X_AXIS));
+// Dodaj labelNazwisko i textFieldNazwisko z odpowiednimi wagami
         nazwiskoPanel.add(labelNazwisko);
         nazwiskoPanel.add(textFieldNazwisko);
+        nazwiskoPanel.add(Box.createHorizontalGlue());
 
-        peselPanel.setLayout(new BoxLayout(peselPanel, BoxLayout.X_AXIS));
+// Dodaj labelWiek i textFieldWiek z odpowiednimi wagami
+        wiekPanel.add(labelWiek);
+        wiekPanel.add(textFieldWiek);
+        wiekPanel.add(Box.createHorizontalGlue());
+
+// Dodaj labelNazwisko i textFieldNazwisko z odpowiednimi wagami
+        nazwiskoPanel.add(labelNazwisko);
+        nazwiskoPanel.add(textFieldNazwisko);
+        nazwiskoPanel.add(Box.createHorizontalGlue());
+
+        sredniaPanel.add(sredniaOcen);
+        sredniaPanel.add(textFieldSrednia);
+        sredniaPanel.add(Box.createHorizontalGlue());
+
         peselPanel.add(labelPesel);
         peselPanel.add(textFieldPesel);
+        peselPanel.add(Box.createHorizontalGlue());
 
-        indeksPanel.setLayout(new BoxLayout(indeksPanel, BoxLayout.X_AXIS));
         indeksPanel.add(labelIndeks);
         indeksPanel.add(textFieldIndeks);
+        indeksPanel.add(Box.createHorizontalGlue());
 
-        kierunekPanel.setLayout(new BoxLayout(kierunekPanel, BoxLayout.X_AXIS));
         kierunekPanel.add(labelKierunek);
         kierunekPanel.add(textFieldKierunek);
+        kierunekPanel.add(Box.createHorizontalGlue());
 
-        semestrPanel.setLayout(new BoxLayout(semestrPanel, BoxLayout.X_AXIS));
         semestrPanel.add(labelSemestr);
         semestrPanel.add(textFieldSemestr);
+        semestrPanel.add(Box.createHorizontalGlue());
 
-        wynagrodzeniePanel.setLayout(new BoxLayout(wynagrodzeniePanel, BoxLayout.X_AXIS));
         wynagrodzeniePanel.add(labelWynagrodzenie);
         wynagrodzeniePanel.add(textFieldWynagrodzenie);
+        wynagrodzeniePanel.add(Box.createHorizontalGlue());
 
-        stazPanel.setLayout(new BoxLayout(stazPanel, BoxLayout.X_AXIS));
         stazPanel.add(labelStaz);
         stazPanel.add(textFieldStaz);
+        stazPanel.add(Box.createHorizontalGlue());
 
-        stanowiskoPanel.setLayout(new BoxLayout(stanowiskoPanel, BoxLayout.X_AXIS));
         stanowiskoPanel.add(labelStanowisko);
         stanowiskoPanel.add(textFieldStanowisko);
+        stanowiskoPanel.add(Box.createHorizontalGlue());
 
-        tytulNaukowyPanel.setLayout(new BoxLayout(tytulNaukowyPanel, BoxLayout.X_AXIS));
         tytulNaukowyPanel.add(labelTytulNaukowy);
         tytulNaukowyPanel.add(textFieldTytulNaukowy);
-
-        studentContentPanel.setLayout(new BoxLayout(studentContentPanel, BoxLayout.Y_AXIS));
-        PNDContentPanel.setLayout(new BoxLayout(PNDContentPanel, BoxLayout.Y_AXIS));
-        PUContentPanel.setLayout(new BoxLayout(PUContentPanel, BoxLayout.Y_AXIS));
+        tytulNaukowyPanel.add(Box.createHorizontalGlue());
 
         contentPanel.add(dodajOsobeTytul);
         contentPanel.add(dodajStudentaPrzycisk);
@@ -208,10 +268,12 @@ class dodajOsobe extends JPanel implements ActionListener {
         add(studentContentPanel, "stronaStudenta");
         add(PNDContentPanel, "stronaPND");
         add(PUContentPanel, "stronaPU");
+
     }
 
+
     public void zaladujDostepneKursy() {
-        ArrayList<Kursy> listaKursow = BazaDanych.getKursy();
+        ArrayList<Kursy> listaKursow = Controller.getKursy();
         modelListyKursow.clear();
         for (Kursy kurs : listaKursow) {
             modelListyKursow.addElement(kurs);
@@ -232,7 +294,7 @@ class dodajOsobe extends JPanel implements ActionListener {
 
         if (e.getSource() == dodajKursButton) {
             Kursy kurs = new Kursy(nazwaKursuField.getText(), wykladowcaField.getText(), cwiczeniowiecField.getText());
-            BazaDanych.dodajKurs(kurs);
+            Controller.dodajKurs(kurs);
             zaladujDostepneKursy();
             aktualizujListeKursowStudenta();
             getParent().revalidate();
@@ -259,7 +321,7 @@ class dodajOsobe extends JPanel implements ActionListener {
                 student.dodajKurs(kurs);
             }
 
-            BazaDanych.dodajStudenta(student);
+            Controller.dodajStudenta(student);
 
             cardLayout.show(this, "stronaGlowna");
 
@@ -277,7 +339,7 @@ class dodajOsobe extends JPanel implements ActionListener {
             int staz = Integer.parseInt(textFieldStaz.getText());
             obliczWynagrodzenieStrategy = new obliczWynagrodzeniePoStazu(staz);
             PracownikUczelni pU = new PracownikUczelni(wiek, imie, nazwisko, pesel, staz, stanowsiko, obliczWynagrodzenieStrategy);
-            BazaDanych.dodajPU(pU);
+            Controller.dodajPU(pU);
             cardLayout.show(this, "stronaGlowna");
 
 
@@ -299,7 +361,7 @@ class dodajOsobe extends JPanel implements ActionListener {
 
 
             PracownikNaukowoDydaktyczny PND = new PracownikNaukowoDydaktyczny(wiek, imie, nazwisko, pesel, staz, tytulNaukowy, obliczWynagrodzenieStrategy);
-            BazaDanych.dodajPND(PND);
+            Controller.dodajPND(PND);
             cardLayout.show(this, "stronaGlowna");
 
 
@@ -310,19 +372,32 @@ class dodajOsobe extends JPanel implements ActionListener {
             PNDContentPanel.removeAll();
             studentContentPanel.removeAll();
             studentContentPanel.setLayout(new BoxLayout(studentContentPanel, BoxLayout.Y_AXIS));
-            studentContentPanel.add(sredniaPanel);
-            studentContentPanel.add(wiekPanel);
-            studentContentPanel.add(imiePanel);
-            studentContentPanel.add(nazwiskoPanel);
-            studentContentPanel.add(peselPanel);
-            studentContentPanel.add(indeksPanel);
-            studentContentPanel.add(kierunekPanel);
-            studentContentPanel.add(semestrPanel);
-            studentContentPanel.add(studentPrzyciskPanel);
-            studentContentPanel.add(kursyPanel);
-            studentContentPanel.add(new JScrollPane(listaKursowJList));
-            studentContentPanel.add(wrocDoStronyGlownejPrzycisk);
 
+            studentContentPanel.add(imiePanel);
+            studentContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));  // Ruchoma przestrzeń 5 pikseli
+            studentContentPanel.add(nazwiskoPanel);
+            studentContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+            studentContentPanel.add(peselPanel);
+            studentContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+            studentContentPanel.add(indeksPanel);
+            studentContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+            studentContentPanel.add(kierunekPanel);
+            studentContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+            studentContentPanel.add(semestrPanel);
+            studentContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+            studentContentPanel.add(sredniaPanel);
+            studentContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+            studentContentPanel.add(wiekPanel);
+            studentContentPanel.add(Box.createRigidArea(new Dimension(0, 15)));  // Większa przestrzeń między sekcjami
+
+            studentContentPanel.add(kursyPanel);
+            studentContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+            studentContentPanel.add(new JScrollPane(listaKursowJList));
+            studentContentPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+
+            studentContentPanel.add(studentPrzyciskPanel);
+            studentContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+            studentContentPanel.add(wrocDoStronyGlownejPrzycisk);
 
             cardLayout.show(this, "stronaStudenta");
 
@@ -334,36 +409,55 @@ class dodajOsobe extends JPanel implements ActionListener {
             studentContentPanel.removeAll();
 
             PNDContentPanel.setLayout(new BoxLayout(PNDContentPanel, BoxLayout.Y_AXIS));
+
             PNDContentPanel.add(wiekPanel);
+            PNDContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PNDContentPanel.add(imiePanel);
+            PNDContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PNDContentPanel.add(nazwiskoPanel);
+            PNDContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PNDContentPanel.add(peselPanel);
+            PNDContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PNDContentPanel.add(stazPanel);
+            PNDContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PNDContentPanel.add(tytulNaukowyPanel);
+            PNDContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PNDContentPanel.add(PNDPrzyciskPanel);
+            PNDContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PNDContentPanel.add(StrategiaPanel);
+            PNDContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PNDContentPanel.add(wrocDoStronyGlownejPrzycisk);
 
-
             cardLayout.show(this, "stronaPND");
+
+            // Dodaj inne operacje, jeśli są wymagane
         }
         if (e.getSource() == dodajPUPrzycisk) {
             PUContentPanel.removeAll();
             PNDContentPanel.removeAll();
             studentContentPanel.removeAll();
 
+            PUContentPanel.setLayout(new BoxLayout(PUContentPanel, BoxLayout.Y_AXIS));
 
             PUContentPanel.add(wiekPanel);
+            PUContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PUContentPanel.add(imiePanel);
+            PUContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PUContentPanel.add(nazwiskoPanel);
+            PUContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PUContentPanel.add(peselPanel);
+            PUContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PUContentPanel.add(stazPanel);
+            PUContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PUContentPanel.add(stanowiskoPanel);
+            PUContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PUContentPanel.add(PUPrzyciskPanel);
+            PUContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
             PUContentPanel.add(wrocDoStronyGlownejPrzycisk);
 
-
             cardLayout.show(this, "stronaPU");
+
+
         }
         if (e.getSource() == wrocDoStronyGlownejPrzycisk) {
             cardLayout.show(this, "stronaGlowna");

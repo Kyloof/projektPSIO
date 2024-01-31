@@ -1,7 +1,7 @@
 package Program;
 import java.io.IOException;
 
-import BazaDanych.Serializacja;
+import UczelniaController.Serializacja;
 import MainPage.Frontend;
 
 

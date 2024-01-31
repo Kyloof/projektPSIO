@@ -1,6 +1,5 @@
-package BazaDanych;
+package UczelniaController;
 
-import BazaDanych.BazaDanych;
 import Kursy.Kursy;
 import Osoba.Osoba;
 
@@ -27,7 +26,7 @@ public class Serializacja {
         ArrayList<Osoba> listaOsobOdczytana = null;
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(nazwaPliku))) {
             listaOsobOdczytana = (ArrayList<Osoba>) inputStream.readObject();
-            BazaDanych.setListaOsob(listaOsobOdczytana);
+            Controller.setListaOsob(listaOsobOdczytana);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -37,7 +36,7 @@ public class Serializacja {
         ArrayList<Kursy> listaKursowOdczytana = null;
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(nazwaPliku))) {
             listaKursowOdczytana = (ArrayList<Kursy>) inputStream.readObject();
-            BazaDanych.setListaKursow(listaKursowOdczytana);
+            Controller.setListaKursow(listaKursowOdczytana);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

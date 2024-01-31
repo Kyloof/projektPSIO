@@ -11,7 +11,7 @@ public class PracownikUczelni extends Pracownik{
     }
     @Override
     public String toString(){
-        return (super.toString() + " Stanowisko: " + getStanowisko());
+        return (super.toString()+ "<br>" + " Stanowisko: " + getStanowisko());
     }
     public String getStanowisko() {
         return stanowisko;

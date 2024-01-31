@@ -1,8 +1,5 @@
 package obliczStypendiumStrategy;
 
-import BazaDanych.Serializacja;
-import Student.Student;
-
 import java.io.Serializable;
 
 public class obliczStypendiumNaPodstawieOcen implements Stypendium,Serializable{

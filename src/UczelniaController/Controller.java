@@ -1,4 +1,4 @@
-package BazaDanych;
+package UczelniaController;
 
 import Kursy.Kursy;
 import Osoba.Osoba;
@@ -8,7 +8,7 @@ import Student.Student;
 
 import java.util.ArrayList;
 
-public class BazaDanych {
+public class Controller {
     private static ArrayList<Osoba> listaOsob = new ArrayList<Osoba>();
 
     private static ArrayList<Kursy> listaKursow = new ArrayList<Kursy>();
@@ -95,7 +95,7 @@ public class BazaDanych {
     }
 
     public static void setListaOsob(ArrayList<Osoba> listaOsob) {
-        BazaDanych.listaOsob = listaOsob;
+        Controller.listaOsob = listaOsob;
     }
 
     public static ArrayList<Kursy> getListaKursow() {
@@ -103,28 +103,11 @@ public class BazaDanych {
     }
 
     public static void setListaKursow(ArrayList<Kursy> listaKursow) {
-        BazaDanych.listaKursow = listaKursow;
+        Controller.listaKursow = listaKursow;
     }
 }
-class NiepoprawnaLiczbaKursow extends Exception {
-    public NiepoprawnaLiczbaKursow(String wiadomosc) {
-        super(wiadomosc);
-    }
-
-
-    public static void ZlaLiczbaKursow(int n) {
-        try {
-            Metoda1(n);
-        } catch (NiepoprawnaLiczbaKursow e) {
-            e.printStackTrace();
-        }
-    }
-    public static void Metoda1(int n) throws NiepoprawnaLiczbaKursow {
-        if (n == 0) throw new NiepoprawnaLiczbaKursow("Student nie może nie uczestniczyć w żadnym kursie");
-    }
 
 
 
 
 
-}

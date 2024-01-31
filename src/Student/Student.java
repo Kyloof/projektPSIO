@@ -39,7 +39,7 @@ public class Student extends Osoba {
     }
     @Override
     public String toString(){
-        return (super.toString() + " indeks: " + getIndeks() + " " + getKierunek() + "Semestr: " + getKtorySemestr()+ "Stypendium" + getStypendium() + "<br>" + wyswietlKursy());
+        return (super.toString() + "<br>"+ " indeks: "  + getIndeks() + "<br>" + "Kierunek: " + getKierunek() + "<br>" + "Semestr: " + getKtorySemestr() + "<br>" + "Stypendium" + getStypendium() + "<br>" + wyswietlKursy());
     }
 
 
@@ -50,7 +50,7 @@ public class Student extends Osoba {
     public String wyswietlKursy() {
         String kursy = "";
         for (int i = 0; i < getListaKursow().size(); i++) {
-            kursy += "Kurs: " + getListaKursow().get(i).getNazwaKursu() + " Wykładowca: " + getListaKursow().get(i).getWykladowca() + " Cwiczeniowiec: " + getListaKursow().get(i).getCwiczeniowiec() + "<br>";
+            kursy += "Kurs: " + getListaKursow().get(i).getNazwaKursu()+ "<br>" + " Wykładowca: " + getListaKursow().get(i).getWykladowca() + "<br>"+ " Cwiczeniowiec: " + getListaKursow().get(i).getCwiczeniowiec() + "<br>";
         }
         return kursy;
 

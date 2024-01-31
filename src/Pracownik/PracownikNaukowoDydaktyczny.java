@@ -14,7 +14,7 @@ public class PracownikNaukowoDydaktyczny extends Pracownik{
 
     @Override
     public String toString(){
-        return (super.toString() + "Tytul naukowy: " + getTytulNaukowy());
+        return (super.toString() + "<br>" + "Tytul naukowy: " + getTytulNaukowy());
     }
 
 
